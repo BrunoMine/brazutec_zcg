@@ -1,7 +1,14 @@
--- ZCG mod para minetest
--- Crado por Zeg'9 da comunidade internacional <http://minetest.net/>
--- Alteradoe adaptado por BrunoMine da comunidade minetestbr <http://minetestbr.blogspot.com.br/>
+--[[
+ZCG mod para minetest
+Crado por Zeg'9 da comunidade internacional <http://minetest.net/>
+Alteradoe adaptado por BrunoMine da comunidade minetestbr <http://minetestbr.blogspot.com.br/> 
+]]--
 
+-- Carregar outros arquivos
+print("[Brazutec_zcg] Carregando mod brazutec_zcg... ")
+
+-- Função para do inventário de guia de montagem
+ 
 local tela_principal = {}
 tela_principal.set_inventory_formspec = function(player,formspec)
 		minetest.show_formspec(player:get_player_name(), "", formspec)
@@ -109,7 +116,7 @@ zcg.formspec = function(pn)
 	local alt = zcg.users[pn].alt
 	local current_item = zcg.users[pn].current_item
 	local formspec = "size[8,7.5]"
-	.. "button[0,0;2,.5;brazutec_desktop_etiqueta;Voltar]"
+	.. "button_exit[0,0;2,.5;;Sair]"
 	if zcg.users[pn].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;brazutec_zcg_previous.png;zcg_previous;;false;false;brazutec_zcg_previous_press.png]"
 	else
@@ -212,12 +219,56 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 	end
 end)
 
--- Passar dados para o laptop cub
+--
+-- Nó Mini guia de montagem
+--
 
-local imagem_do_app = "brazutec_zcg_app_botao.png"
-local etiqueta_do_app = "zcg"
+minetest.register_node("brazutec_zcg:mini_guia", {
+	description = "Mini Guia de Montagem",
+	drawtype = "nodebox",
+	tiles = {
+		{name="brazutec_zcg_mini_guia.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}}, -- Cima
+		{name="brazutec_zcg_mini_guia.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}}, -- Baixo
+		"brazutec_zcg_mini_guia_lado.png", -- Lado direito
+		"brazutec_zcg_mini_guia_lado.png", -- Lado esquerda
+		"brazutec_zcg_mini_guia_lado.png", -- Fundo
+		{name="brazutec_zcg_mini_guia.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}} -- Frente
+	},
+	inventory_image = "brazutec_zcg_mini_guia_inventario.png",
+	wield_image = "brazutec_zcg_mini_guia_inventario.png",
+	paramtype = "light",
+	paramtype2 = "wallmounted",
+	sunlight_propagates = true,
+	is_ground_content = false,
+	walkable = false,
+	node_box = {
+		type = "wallmounted",
+		wall_top    = {-0.3125, 0.3125, -0.3125, 0.3125, 0.5, 0.3125},
+		wall_bottom = {-0.3125, -0.5, -0.3125, 0.3125, -0.3125, 0.3125},
+		wall_side   = {-0.5, -0.3125, -0.3125, -0.3125, 0.3125, 0.3125},
+	},
+	groups = {choppy=2,dig_immediate=2,attached_node=1},
+	legacy_wallmounted = true,
+	sounds = default.node_sound_defaults(),
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
+		local pn = player:get_player_name();
+		if zcg.users[pn] == nil then zcg.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
+		tela_principal.set_inventory_formspec(player, zcg.formspec(pn))
+	end,
+})
+
+minetest.register_alias("brazutec_zcg_guia", "brazutec_zcg:mini_guia")
+
+--
+-- Passar dados para o laptop cub
+--
+
+local imagem_app = "brazutec_zcg_app_botao.png"
+local etiqueta_app = "zcg"
 
 minetest.register_on_joinplayer(function(player)
-	brazutec_instalar_em_laptop(imagem_do_app, etiqueta_do_app)
+	brazutec_instalar_em_laptop(imagem_app, etiqueta_app)
 	minetest.chat_send_all("Funcao de brazutec_teste realizada")
 end)
+
+print("[Brazutec_zcg] OK")
