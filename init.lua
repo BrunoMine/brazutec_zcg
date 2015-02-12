@@ -266,9 +266,6 @@ minetest.register_alias("brazutec_zcg_guia", "brazutec_zcg:mini_guia")
 local imagem_app = "brazutec_zcg_app_botao.png"
 local etiqueta_app = "zcg"
 
-minetest.register_on_joinplayer(function(player)
-	brazutec_instalar_em_cub(imagem_app, etiqueta_app)
-	minetest.chat_send_all("Funcao de brazutec_teste realizada")
-end)
+brazutec_instalar_em_cub(imagem_app, etiqueta_app)
 
 print("[Brazutec_zcg] OK")
