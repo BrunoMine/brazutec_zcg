@@ -239,6 +239,7 @@ minetest.register_node("brazutec_zcg:mini_guia", {
 	paramtype = "light",
 	paramtype2 = "wallmounted",
 	sunlight_propagates = true,
+	light_source = LIGHT_MAX,
 	is_ground_content = false,
 	walkable = false,
 	node_box = {
