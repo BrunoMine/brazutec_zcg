@@ -227,12 +227,7 @@ minetest.register_node("brazutec_zcg:mini_guia", {
 	description = "Mini Guia de Montagem",
 	drawtype = "nodebox",
 	tiles = {
-		{name="brazutec_zcg_mini_guia.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}}, -- Cima
-		{name="brazutec_zcg_mini_guia.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}}, -- Baixo
-		"brazutec_zcg_mini_guia_lado.png", -- Lado direito
-		"brazutec_zcg_mini_guia_lado.png", -- Lado esquerda
-		"brazutec_zcg_mini_guia_lado.png", -- Fundo
-		{name="brazutec_zcg_mini_guia.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}} -- Frente
+		{name="brazutec_zcg_mini_guia.png", animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0}}
 	},
 	inventory_image = "brazutec_zcg_mini_guia_inventario.png",
 	wield_image = "brazutec_zcg_mini_guia_inventario.png",
