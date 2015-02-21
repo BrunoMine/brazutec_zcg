@@ -116,7 +116,9 @@ zcg.formspec = function(pn)
 	local alt = zcg.users[pn].alt
 	local current_item = zcg.users[pn].current_item
 	local formspec = "size[8,7.5]"
+	.. "bgcolor[#080808BB;true]"
 	.. "button_exit[0,0;2,.5;;Sair]"
+	.. "label[5,7.4;Desenvolvido por Zeg'9]"
 	if zcg.users[pn].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;brazutec_zcg_previous.png;zcg_previous;;false;false;brazutec_zcg_previous_press.png]"
 	else
