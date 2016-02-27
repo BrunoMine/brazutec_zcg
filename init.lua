@@ -255,6 +255,16 @@ minetest.register_node("brazutec_zcg:mini_guia", {
 	end,
 })
 
+-- Limpar dados temporarios dos jogadores
+local timer = 0
+minetest.register_globalstep(function(dtime)
+	timer = timer + dtime;
+	if timer >= 3600 then
+		timer = 0
+		zcg.users = {}
+	end
+end)
+
 minetest.register_alias("brazutec_zcg_guia", "brazutec_zcg:mini_guia")
 
 --
